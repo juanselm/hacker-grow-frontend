@@ -27,6 +27,7 @@ Antes de empezar, asegúrate de tener instalados los siguientes requisitos:
   ```bash
   git clone https://github.com/juanselm/hacker-grow-frontend.git
   cd hacker-grow-frontend
+  ```
 
 ## Development server
 

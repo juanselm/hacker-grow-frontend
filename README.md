@@ -1,6 +1,32 @@
-# HackerGrowFrontend
+# Hacker Grow - Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+
+
+Este proyecto es la parte frontend de **Hacker Grow**, una plataforma de retos y aprendizaje de hacking o ciberseguridad.
+
+## Tecnologías utilizadas
+
+- **Angular**: Framework principal para la creación del frontend.
+- **Angular Material**: Biblioteca para componentes de UI con un diseño moderno.
+- **TypeScript**: Lenguaje de programación principal para el desarrollo en Angular.
+- **HTML & SCSS**: Para la estructura y estilo de la interfaz de usuario.
+
+## Requisitos previos
+
+Antes de empezar, asegúrate de tener instalados los siguientes requisitos:
+
+- **Node.js**: v18.19 o superior. [Descargar Node.js](https://nodejs.org/)
+- **Angular CLI**: v15 o superior. Puedes instalarlo globalmente con:
+
+  ```bash
+  npm install -g @angular/cli
+
+## Requisitos previos
+
+  ```bash
+  git clone https://github.com/juanselm/hacker-grow-frontend.git
+  cd hacker-grow-frontend
 
 ## Development server
 

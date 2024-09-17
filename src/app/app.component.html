@@ -1,22 +1,23 @@
 <div class="header">
   <div class="logo">
-    <!-- Espacio para el logo -->
-    <img src="assets/logo.png" alt="Logo">
+    <img src="images/hacker-grow-logo.png" alt="Logo">
   </div>
   <div class="auth-buttons">
-    <button>Sign In</button>
-    <button>Log In</button>
+    <button routerLink="login">Log In</button>
+    <button routerLink="signin">Sign In</button>
   </div>
 </div>
 
-<div class="home-container">
-  <h1>Bienvenido a My Angular App</h1>
-  <p>Esta es la página de inicio.</p>
-</div>
+<router-outlet></router-outlet>
 
 <div class="footer">
-  <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-  <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-  <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-  <a href="https://github.com/juanselm?tab=repositories" target="_blank"><i class="fa-brands fa-github"></i></a>
+  <div class="footer-links">
+    <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://github.com/juanselm?tab=repositories" target="_blank"><i class="fa-brands fa-github"></i></a>
+    <a routerLink="/about-us">About Us</a>
+    <a routerLink="/privacy-policy">Privacy Policy</a>
+  </div>
+  <p class="copyright">© 2024-2026 Hacker Grow</p>
 </div>

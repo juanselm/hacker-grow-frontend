@@ -4,6 +4,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -12,4 +13,5 @@ export const routes: Routes = [
     { path: 'signin', component: SigninComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', component: PageNotFoundComponent },
 ];

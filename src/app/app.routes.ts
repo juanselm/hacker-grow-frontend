@@ -11,4 +11,5 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

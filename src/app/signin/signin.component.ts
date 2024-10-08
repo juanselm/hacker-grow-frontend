@@ -28,15 +28,24 @@ export class SigninComponent {
       this.authService.signIn(this.signInForm.value).subscribe(
         response => {
           alert('Registration successful!');
-          this.signInForm.reset();
+          this.signInForm.reset(); // Restablecer el formulario después del registro exitoso
         },
         error => {
-          console.error('Error during registration:', error);
+          if (error.status === 409) {
+            alert('Registration failed.');
+          } else {
+            console.error('Error during registration:', error);
+            alert('An error occurred during registration. Please try again.');
+          }
         }
       );
     } else {
+      if (this.signInForm.controls['contrasena'].errors?.['minlength']) {
+        alert('Password must be at least 10 characters long.');
+      } else {
+        alert('Please verify the form fields');
+      }
       console.error('Form is invalid');
-      alert('Please verify the form fields');
     }
   }
 }

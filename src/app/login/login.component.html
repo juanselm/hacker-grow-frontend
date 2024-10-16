@@ -7,14 +7,14 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="correo">Email:</label>
-          <input type="correo" id="correo" formControlName="correo" required>
+          <input type="email" id="correo" formControlName="correo" required>
           <div *ngIf="loginForm.controls['correo'].invalid && loginForm.controls['correo'].touched">
             <small class="error">Email is required and should be valid.</small>
           </div>
         </div>
         <div class="form-group">
           <label for="contrasena">Password:</label>
-          <input type="contrasena" id="contrasena" formControlName="contrasena" required>
+          <input type="password" id="contrasena" formControlName="contrasena" required>
           <div *ngIf="loginForm.controls['contrasena'].invalid && loginForm.controls['contrasena'].touched">
             <small class="error">Password is required.</small>
           </div>

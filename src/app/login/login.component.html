@@ -4,14 +4,20 @@
         <img src="images/hacker-grow-logo.png" alt="Hacker Grow Logo">
       </div>
       <h2>Login</h2>
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
+          <label for="correo">Email:</label>
+          <input type="correo" id="correo" formControlName="correo" required>
+          <div *ngIf="loginForm.controls['correo'].invalid && loginForm.controls['correo'].touched">
+            <small class="error">Email is required and should be valid.</small>
+          </div>
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
+          <label for="contrasena">Password:</label>
+          <input type="contrasena" id="contrasena" formControlName="contrasena" required>
+          <div *ngIf="loginForm.controls['contrasena'].invalid && loginForm.controls['contrasena'].touched">
+            <small class="error">Password is required.</small>
+          </div>
         </div>
         <button type="submit">Log In</button>
       </form>

@@ -20,4 +20,12 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/login`, data, { headers });
   }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('user');
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+  }
 }

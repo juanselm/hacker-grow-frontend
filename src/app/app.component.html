@@ -3,8 +3,15 @@
     <img src="images/hacker-grow-logo.png" alt="Logo" routerLink="/home">
   </div>
   <div class="auth-buttons">
-    <button routerLink="login">Log In</button>
-    <button routerLink="signin">Sign In</button>
+    <ng-container *ngIf="!(isLoggedIn$ | async); else loggedIn">
+      <button routerLink="login">Log In</button>
+      <button routerLink="signin">Sign In</button>
+    </ng-container>
+    <ng-template #loggedIn>
+      <button routerLink="/home">Home</button>
+      <button routerLink="/dashboard">Dashboard</button>
+      <button (click)="logout()">Logout</button>
+    </ng-template>
   </div>
 </div>
 

@@ -27,6 +27,8 @@ export class LoginComponent {
         response => {
           // Guardar los datos del usuario (puedes usar localStorage o sessionStorage)
           localStorage.setItem('user', JSON.stringify(response));
+          // Actualizar el estado de autenticación
+          this.authService.setLoggedIn(true);
           // Redirigir a la página de dashboard
           this.router.navigate(['/dashboard']);
         },

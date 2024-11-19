@@ -27,8 +27,9 @@ export class LoginComponent {
         response => {
           // Guardar los datos del usuario (puedes usar localStorage o sessionStorage)
           localStorage.setItem('user', JSON.stringify(response));
-          // Actualizar el estado de autenticación
+          // Actualizar el estado de autenticación y el nombre del usuario
           this.authService.setLoggedIn(true);
+          this.authService.setUserName(response.nombre);
           // Redirigir a la página de dashboard
           this.router.navigate(['/dashboard']);
         },
@@ -42,5 +43,4 @@ export class LoginComponent {
       alert('Please verify the form fields');
     }
   }
-
 }

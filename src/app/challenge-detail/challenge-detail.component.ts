@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class ChallengeDetailComponent implements OnInit {
   challenge: any;
   solutionForm: FormGroup;
+  encryptedHash: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,22 @@ export class ChallengeDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.retosService.getRetoById(id).subscribe((data: any) => {
       this.challenge = data;
+      this.encryptedHash = this.encryptHash(data.hashSolucion, data.nombreReto);
+    });
+  }
+
+  encryptHash(hash: string, challengeName: string): string {
+    if (challengeName.toLowerCase().includes('base64')) {
+      return btoa(hash); // Base64 encoding
+    } else {
+      return this.caesarCipher(hash, 3); // Caesar cipher with a shift of 3
+    }
+  }
+
+  caesarCipher(str: string, shift: number): string {
+    return str.replace(/[a-z]/gi, (char) => {
+      const start = char <= 'Z' ? 65 : 97;
+      return String.fromCharCode(((char.charCodeAt(0) - start + shift) % 26) + start);
     });
   }
 

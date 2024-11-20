@@ -38,7 +38,8 @@ export class ChallengeDetailComponent implements OnInit {
     if (challengeName.toLowerCase().includes('base64')) {
       return btoa(hash); // Base64 encoding
     } else {
-      return this.caesarCipher(hash, 3); // Caesar cipher with a shift of 3
+      const shift = Math.floor(Math.random() * 26) + 1;
+      return this.caesarCipher(hash, shift); // Caesar cipher with a shift of 3
     }
   }
 

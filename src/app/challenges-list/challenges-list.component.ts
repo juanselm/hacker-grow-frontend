@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { RetosService } from '../services/retos.service';
 
 @Component({
   selector: 'app-challenges-list',
@@ -9,10 +10,14 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   templateUrl: './challenges-list.component.html',
   styleUrls: ['./challenges-list.component.css']
 })
-export class ChallengesListComponent {
-  challenges = [
-    { title: 'Cryptography', description: 'Learn the art of cryptography, including encryption and decryption techniques.' },
-    { title: 'Secure Practices', description: 'Understand and implement best practices for securing systems and applications.' },
-    { title: 'Pentesting', description: 'Engage in penetration testing to identify vulnerabilities in systems and networks.' }
-  ];
+export class ChallengesListComponent implements OnInit {
+  challenges: any[] = [];
+
+  constructor(private retosService: RetosService) {}
+
+  ngOnInit(): void {
+    this.retosService.getRetos().subscribe((data: any[]) => {
+      this.challenges = data;
+    });
+  }
 }

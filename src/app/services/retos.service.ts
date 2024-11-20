@@ -13,4 +13,8 @@ export class RetosService {
   getRetos(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getRetoById(id: string | null): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
 }

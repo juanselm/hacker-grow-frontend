@@ -7,6 +7,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChallengesListComponent } from './challenges-list/challenges-list.component';
+import { ChallengeDetailComponent } from './challenge-detail/challenge-detail.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'challenges', component: ChallengesListComponent, canActivate: [AuthGuard] },
+    { path: 'challenge/:id', component: ChallengeDetailComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },
 ];

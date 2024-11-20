@@ -1,9 +1,8 @@
 <div class="challenges-list-container">
     <h2>Challenges</h2>
-    <div class="challenge" *ngFor="let challenge of challenges">
+    <div class="challenge" *ngFor="let challenge of challenges" [routerLink]="['/challenge', challenge.idReto]">
       <h3>{{ challenge.nombreReto }}</h3>
       <p>{{ challenge.descripcion }}</p>
       <p><strong>Difficulty:</strong> {{ challenge.nivelDificultad }}</p>
-      <a [href]="challenge.urlRecurso" target="_blank">Resource</a>
     </div>
   </div>

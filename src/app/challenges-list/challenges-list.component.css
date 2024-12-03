@@ -8,6 +8,26 @@
   margin-bottom: 20px;
 }
 
+.challenges-list-container p {
+  font-size: 1.2em;
+  color: #ff5722; /* Color del texto del mensaje */
+}
+
+.back-button {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  background-color: #e64a19;
+}
+
 .challenge {
   background-color: #ff5722; /* Color naranja */
   padding: 20px;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { RetosService } from '../services/retos.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-challenges-list',
@@ -14,7 +15,7 @@ export class ChallengesListComponent implements OnInit {
   challenges: any[] = [];
   categoria: string | null = '';
 
-  constructor(private retosService: RetosService, private route: ActivatedRoute) {}
+  constructor(private retosService: RetosService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
     this.categoria = this.route.snapshot.paramMap.get('categoria');
@@ -27,5 +28,9 @@ export class ChallengesListComponent implements OnInit {
     this.retosService.getRetosByCategoria(categoria).subscribe((data: any[]) => {
       this.challenges = data;
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

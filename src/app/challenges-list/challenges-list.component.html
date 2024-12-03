@@ -1,5 +1,9 @@
 <div class="challenges-list-container">
   <h2>Challenges</h2>
+  <div *ngIf="challenges.length === 0">
+    <p>We are working on future challenges. Stay tuned!</p>
+    <button class="back-button" (click)="goBack()">Back</button>
+  </div>
   <div class="challenge" *ngFor="let challenge of challenges" [routerLink]="['/challenge', challenge.idReto]">
     <h3>{{ challenge.nombreReto }}</h3>
     <p class="description">{{ challenge.descripcion }}</p>

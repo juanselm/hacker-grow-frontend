@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: 'signin', component: SigninComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'challenges', component: ChallengesListComponent, canActivate: [AuthGuard] },
+    { path: 'challenges/:categoria', component: ChallengesListComponent, canActivate: [AuthGuard] },
     { path: 'challenge/:id', component: ChallengeDetailComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },

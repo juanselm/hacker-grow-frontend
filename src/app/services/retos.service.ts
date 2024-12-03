@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class RetosService {
   private apiUrl = `${environment.apiUrl}/api/retos`;
+  private progresoUrl = `${environment.apiUrl}/api/progreso-usuarios`;
 
   constructor(private http: HttpClient) {}
 
@@ -21,5 +22,10 @@ export class RetosService {
 
   getRetosByCategoria(categoria: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/categoria/${categoria}`);
+  }
+
+  updateProgresoUsuario(progreso: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(this.progresoUrl, progreso, { headers });
   }
 }

@@ -2,6 +2,7 @@
   padding: 20px;
   max-width: 60%; /* Limitar el ancho máximo al 60% de la página */
   margin: 0 auto; /* Centrar el contenedor */
+  overflow: auto; /* Habilitar el scroll solo cuando sea necesario */
 }
 
 .challenge-detail-container h2 {
@@ -74,4 +75,24 @@ form button {
 
 form button:hover {
   background-color: #e64a19;
+}
+
+/* Estilos para el scrollbar */
+.challenge-detail-container::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar vertical */
+  height: 8px; /* Ancho del scrollbar horizontal */
+}
+
+.challenge-detail-container::-webkit-scrollbar-thumb {
+  background-color: #ff5722; /* Color del scrollbar */
+  border-radius: 10px; /* Bordes redondeados del scrollbar */
+}
+
+.challenge-detail-container::-webkit-scrollbar-track {
+  background: transparent; /* Fondo del track del scrollbar */
+}
+
+.challenge-detail-container {
+  scrollbar-width: thin; /* Ancho del scrollbar para Firefox */
+  scrollbar-color: #ff5722 transparent; /* Color del scrollbar para Firefox */
 }

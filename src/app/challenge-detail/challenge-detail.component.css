@@ -1,5 +1,7 @@
 .challenge-detail-container {
   padding: 20px;
+  max-width: 60%; /* Limitar el ancho máximo al 60% de la página */
+  margin: 0 auto; /* Centrar el contenedor */
 }
 
 .challenge-detail-container h2 {

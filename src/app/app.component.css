@@ -1,73 +1,94 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
 .logo img {
-    height: 40px;
-  }
-  
+  height: 40px;
+}
+
 .auth-buttons button {
-    margin-left: 10px;
-  }
-  
+  margin-left: 10px;
+}
+
 :host {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .home-container {
-    flex: 1;
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-.footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #dee2e6;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
+  flex: 1;
+  text-align: center;
+  margin-top: 50px;
+}
 
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
+/* Estilos para el scrollbar */
+:host ::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar vertical */
+  height: 8px; /* Ancho del scrollbar horizontal */
+}
+
+:host ::-webkit-scrollbar-thumb {
+  background-color: #ff5722; /* Color del scrollbar */
+  border-radius: 10px; /* Bordes redondeados del scrollbar */
+}
+
+:host ::-webkit-scrollbar-track {
+  background: transparent; /* Fondo del track del scrollbar */
+}
+
+:host {
+  scrollbar-width: thin; /* Ancho del scrollbar para Firefox */
+  scrollbar-color: #ff5722 transparent; /* Color del scrollbar para Firefox */
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto; /* Asegura que el footer se mantenga en la parte inferior */
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .footer a {
-    margin: 5px;
-    text-decoration: none;
-    color: #828282;
-  }
-  
+  margin: 5px;
+  text-decoration: none;
+  color: #828282;
+}
+
 .footer a:hover {
-    text-decoration: underline;
-  }
-  
+  text-decoration: underline;
+}
+
 button {
-    background-color: #2a2a2a;
-    color: white;
-    margin: 2px; /* Reducir el margen */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #2a2a2a;
+  color: white;
+  margin: 2px; /* Reducir el margen */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #666666;
+  background-color: #666666;
 }
 
 .footer .copyright {

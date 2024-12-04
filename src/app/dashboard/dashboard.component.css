@@ -36,6 +36,23 @@
   text-align: center; /* Asegura que el texto esté centrado */
 }
 
+.progress-container {
+  margin-top: 40px; /* Aumentar el margen superior para bajar más el contenedor de progreso */
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 5px;
+}
+
 .main-content {
   flex: 1;
   padding: 20px;

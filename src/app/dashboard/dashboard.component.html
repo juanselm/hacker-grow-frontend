@@ -3,6 +3,18 @@
     <div class="profile">
       <div class="avatar"></div>
       <h2>{{ userName$ | async }}</h2>
+      <div *ngIf="progreso.length > 0">
+        
+        <div class="progress-container">
+          <h3>Progress</h3>
+          <div *ngFor="let item of progreso">
+            <p>{{ item.reto.nombreReto }}: {{ item.estadoReto }}</p>
+            <div class="progress-bar">
+              <div class="progress" [style.width]="getProgressWidth(item.estadoReto)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="main-content">

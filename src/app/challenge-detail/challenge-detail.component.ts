@@ -17,6 +17,7 @@ export class ChallengeDetailComponent implements OnInit {
   solutionForm: FormGroup;
   encryptedHash: string = '';
   userId: number | null = null;
+  progreso: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,13 +35,24 @@ export class ChallengeDetailComponent implements OnInit {
     this.userId = this.getUserId();
     this.retosService.getRetoById(id).subscribe((data: any) => {
       this.challenge = data;
-      this.encryptedHash = this.encryptHash(data.hashSolucion, data.nombreReto);
+      if (data.hashSolucion) {
+        this.encryptedHash = this.encryptHash(data.hashSolucion, data.nombreReto);
+      }
     });
+    if (this.userId) {
+      this.getProgresoUsuario(this.userId);
+    }
   }
 
   getUserId(): number | null {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.idUsuario || null;
+  }
+
+  getProgresoUsuario(idUsuario: number): void {
+    this.retosService.getProgresoUsuario(idUsuario).subscribe((data: any[]) => {
+      this.progreso = data.find(p => p.reto.idReto === this.challenge.idReto);
+    });
   }
 
   encryptHash(hash: string, challengeName: string): string {
@@ -77,6 +89,7 @@ export class ChallengeDetailComponent implements OnInit {
       } else {
         alert('Incorrect solution. Please try again.');
       }
+      this.getProgresoUsuario(this.userId!); // Actualizar el progreso después de intentar la solución
     });
   }
 }

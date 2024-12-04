@@ -28,4 +28,8 @@ export class RetosService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(this.progresoUrl, progreso, { headers });
   }
+
+  getProgresoUsuario(idUsuario: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.progresoUrl}/usuario/${idUsuario}`);
+  }
 }

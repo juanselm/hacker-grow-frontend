@@ -58,3 +58,8 @@
   text-overflow: ellipsis;
   max-width: 100%; /* Asegura que el texto se trunque dentro del contenedor */
 }
+
+.completed {
+  color: #4caf50; /* Color verde para indicar completado */
+  font-weight: bold;
+}

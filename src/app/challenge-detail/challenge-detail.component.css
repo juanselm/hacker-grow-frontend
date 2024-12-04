@@ -96,3 +96,10 @@ form button:hover {
   scrollbar-width: thin; /* Ancho del scrollbar para Firefox */
   scrollbar-color: #ff5722 transparent; /* Color del scrollbar para Firefox */
 }
+
+.completed {
+  color: #4caf50; /* Color verde para indicar completado */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}

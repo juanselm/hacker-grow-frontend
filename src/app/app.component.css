@@ -25,7 +25,17 @@
 }
 
 .auth-buttons button {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 15px 20px;
   margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-buttons button:hover {
+  background-color: #e64a19;
 }
 
 :host {

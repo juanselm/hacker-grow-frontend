@@ -1,30 +1,34 @@
-<div class="header">
-  <div class="logo">
-    <img src="images/hacker-grow-logo.png" alt="Logo" routerLink="/home">
+<div class="app-container">
+  <div class="header">
+    <div class="logo">
+      <img src="images/hacker-grow-logo.png" alt="Logo" routerLink="/home">
+    </div>
+    <div class="auth-buttons">
+      <ng-container *ngIf="!(isLoggedIn$ | async); else loggedIn">
+        <button routerLink="login">Log In</button>
+        <button routerLink="signin">Sign In</button>
+      </ng-container>
+      <ng-template #loggedIn>
+        <button routerLink="/home">Home</button>
+        <button routerLink="/dashboard">Dashboard</button>
+        <button (click)="logout()">Logout</button>
+      </ng-template>
+    </div>
   </div>
-  <div class="auth-buttons">
-    <ng-container *ngIf="!(isLoggedIn$ | async); else loggedIn">
-      <button routerLink="login">Log In</button>
-      <button routerLink="signin">Sign In</button>
-    </ng-container>
-    <ng-template #loggedIn>
-      <button routerLink="/home">Home</button>
-      <button routerLink="/dashboard">Dashboard</button>
-      <button (click)="logout()">Logout</button>
-    </ng-template>
-  </div>
-</div>
 
-<router-outlet></router-outlet>
-
-<div class="footer">
-  <div class="footer-links">
-    <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://github.com/juanselm?tab=repositories" target="_blank"><i class="fa-brands fa-github"></i></a>
-    <a routerLink="/about-us">About Us</a>
-    <a routerLink="/privacy-policy">Privacy Policy</a>
+  <div class="main-content">
+    <router-outlet></router-outlet>
   </div>
-  <p class="copyright">© 2024 Hacker Grow</p>
+
+  <div class="footer">
+    <div class="footer-links">
+      <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/juanselm?tab=repositories" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a routerLink="/about-us">About Us</a>
+      <a routerLink="/privacy-policy">Privacy Policy</a>
+    </div>
+    <p class="copyright">© 2024 Hacker Grow</p>
+  </div>
 </div>

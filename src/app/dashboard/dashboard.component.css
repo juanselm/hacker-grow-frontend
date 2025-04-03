@@ -15,10 +15,10 @@
 
 .profile {
   text-align: center;
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el contenido horizontalmente */
+  align-items: center;
 }
 
 .avatar {
@@ -32,12 +32,12 @@
 .profile h2 {
   margin: 0;
   font-size: 1.5em;
-  word-wrap: break-word; /* Permite que el texto se ajuste al ancho del contenedor */
-  text-align: center; /* Asegura que el texto esté centrado */
+  word-wrap: break-word;
+  text-align: center;
 }
 
 .progress-container {
-  margin-top: 40px; /* Aumentar el margen superior para bajar más el contenedor de progreso */
+  margin-top: 40px;
 }
 
 .progress-bar {
@@ -57,34 +57,46 @@
   flex: 1;
   padding: 20px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 20px;
 }
 
-.card {
-  background-color: #fff;
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa; /* Fondo gris claro */
   padding: 20px;
   border-radius: 10px;
-  border: 2px solid #ff5722; /* Contorno de color naranja */
-  box-shadow: 0 0 10px rgba(255, 87, 34, 0.5); /* Sombra de color naranja */
-  width: 240px; /* Agrandar el ancho un 20% */
-  height: 240px; /* Agrandar la altura un 20% */
-  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+.banner-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  align-items: center; /* Centra el contenido horizontalmente */
+  justify-content: center; /* Centra el contenido verticalmente */
+  text-align: center; /* Centra el texto */
 }
 
-.card h3 {
-  margin-top: 0;
-  font-size: 1.2em; /* Ajustar el tamaño de la fuente */
+.banner-content h3 {
+  margin: 0;
+  font-size: 1.5em;
 }
 
-.card p {
-  margin-bottom: 10px;
-  font-size: 0.9em; /* Ajustar el tamaño de la fuente */
+.banner-content p {
+  margin: 10px 0;
+  font-size: 1em;
+  color: #555;
+}
+
+.banner-image {
+  width: 20%; /* Ahora ocupa el 40% del ancho del contenedor */
+  height: auto;
+  border-radius: 10px; /* Bordes redondeados */
+  object-fit: cover; /* Asegura que la imagen se ajuste sin deformarse */
 }
 
 .challenge-button {
@@ -95,7 +107,7 @@
   font-size: 1em;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 10px; /* Añade un margen superior para separar el botón del texto */
 }
 
 .challenge-button:hover {

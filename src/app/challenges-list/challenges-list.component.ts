@@ -67,10 +67,16 @@ export class ChallengesListComponent implements OnInit {
   }
 
   isCompleted(idReto: number): boolean {
-    console.log('Checking if reto is completed:', idReto);
-    const retoProgreso = this.progreso.find(p => p.reto.idReto === idReto);
-    console.log('Reto progreso encontrado:', retoProgreso);
-    return retoProgreso && retoProgreso.estadoReto === 'completado';
+    console.log('Checking if reto is completed based on fechaFinalizacion:', idReto);
+    const retoProgreso = this.progreso
+      .filter(p => p.reto?.idReto === idReto)
+      .sort((a, b) => {
+        const fechaA = a.fechaFinalizacion ? new Date(p.fechaFinalizacion).getTime() : Number.MIN_SAFE_INTEGER;
+        const fechaB = b.fechaFinalizacion ? new Date(b.fechaFinalizacion).getTime() : Number.MIN_SAFE_INTEGER;
+        return fechaB - fechaA;
+      })[0];
+    console.log('Último estado del reto basado en fechaFinalizacion:', retoProgreso);
+    return !!(retoProgreso && retoProgreso.estadoReto === 'completado');
   }
 
   goBack(): void {

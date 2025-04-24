@@ -1,4 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* Asegúrate de que el body no tenga un overflow innecesario */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Revisa el contenedor principal para evitar scroll duplicado */
+.challenges-list-container {
+  overflow: hidden;
+}

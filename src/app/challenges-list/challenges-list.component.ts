@@ -71,7 +71,7 @@ export class ChallengesListComponent implements OnInit {
     const retoProgreso = this.progreso
       .filter(p => p.reto?.idReto === idReto)
       .sort((a, b) => {
-        const fechaA = a.fechaFinalizacion ? new Date(p.fechaFinalizacion).getTime() : Number.MIN_SAFE_INTEGER;
+        const fechaA = a.fechaFinalizacion ? new Date(a.fechaFinalizacion).getTime() : Number.MIN_SAFE_INTEGER;
         const fechaB = b.fechaFinalizacion ? new Date(b.fechaFinalizacion).getTime() : Number.MIN_SAFE_INTEGER;
         return fechaB - fechaA;
       })[0];

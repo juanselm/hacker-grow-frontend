@@ -1,7 +1,15 @@
 <div class="dashboard-container">
   <div class="sidebar">
     <div class="profile">
-      <div class="avatar"></div>
+      <div class="avatar" [ngClass]="{ 'avatar-hover': avatarHover }" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false" (click)="openAvatarModal()">
+        <ng-container *ngIf="selectedAvatar; else defaultAvatar">
+          <img [src]="selectedAvatar.urlImagen" [alt]="selectedAvatar.nombre" class="avatar-img" />
+        </ng-container>
+        <ng-template #defaultAvatar></ng-template>
+        <div class="avatar-overlay" *ngIf="avatarHover">
+          <button class="select-avatar-btn" (click)="$event.stopPropagation(); openAvatarModal()">Seleccionar avatar</button>
+        </div>
+      </div>
       <h2>{{ userName$ | async }}</h2>
       <div *ngIf="progreso.length > 0">
         <h3>Progress</h3>
@@ -42,4 +50,5 @@
       <img src="images/pentest1.jpeg" alt="Pentesting" class="banner-image">
     </div>
   </div>
+  <app-avatar-modal *ngIf="showAvatarModal" [avatars]="avatars" (avatarSelected)="onAvatarSelected($event)" (closed)="onAvatarModalClosed()"></app-avatar-modal>
 </div>

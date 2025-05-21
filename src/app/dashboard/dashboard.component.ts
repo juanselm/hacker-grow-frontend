@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { RetosService } from '../services/retos.service';
 import { ProgresoUsuario } from '../models/progreso-usuario';
+import { AvatarModalComponent } from './avatar-modal.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterOutlet, RouterModule, AvatarModalComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -17,8 +19,12 @@ export class DashboardComponent implements OnInit {
   userName$: Observable<string>;
   progreso: ProgresoUsuario[] = [];
   userId: number | null = null;
+  selectedAvatar: any = null;
+  avatarHover = false;
+  showAvatarModal = false;
+  avatars: any[] = [];
 
-  constructor(private authService: AuthService, private retosService: RetosService) {
+  constructor(private authService: AuthService, private retosService: RetosService, private http: HttpClient) {
     this.userName$ = this.authService.userName$;
   }
 
@@ -58,5 +64,24 @@ export class DashboardComponent implements OnInit {
       default:
         return '0%';
     }
+  }
+
+  openAvatarModal() {
+    this.showAvatarModal = true;
+    if (this.avatars.length === 0) {
+      this.http.get<any[]>('http://localhost:8080/api/avatars').subscribe(data => {
+        this.avatars = data;
+      });
+    }
+  }
+
+  onAvatarSelected(avatar: any) {
+    this.selectedAvatar = avatar;
+    this.showAvatarModal = false;
+    // Aquí podrías guardar el avatar seleccionado en el backend si lo deseas
+  }
+
+  onAvatarModalClosed() {
+    this.showAvatarModal = false;
   }
 }

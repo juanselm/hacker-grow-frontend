@@ -30,6 +30,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.getUserId();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user.idAvatar) {
+      this.http.get<any>(`http://localhost:8080/api/avatars/${user.idAvatar}`).subscribe(avatar => {
+        this.selectedAvatar = avatar;
+      });
+    } else {
+      this.selectedAvatar = null;
+    }
     if (this.userId) {
       this.getProgresoUsuario(this.userId);
     }
@@ -78,7 +86,14 @@ export class DashboardComponent implements OnInit {
   onAvatarSelected(avatar: any) {
     this.selectedAvatar = avatar;
     this.showAvatarModal = false;
-    // Aquí podrías guardar el avatar seleccionado en el backend si lo deseas
+    // Actualiza el idAvatar del usuario en localStorage
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    user.idAvatar = avatar.idAvatar;
+    localStorage.setItem('user', JSON.stringify(user));
+    // Actualiza el avatar en el backend
+    if (this.userId && avatar.idAvatar) {
+      this.http.put(`http://localhost:8080/api/users/${this.userId}/avatar/${avatar.idAvatar}`, {}).subscribe();
+    }
   }
 
   onAvatarModalClosed() {

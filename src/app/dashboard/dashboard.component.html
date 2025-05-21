@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="profile">
       <div class="avatar" [ngClass]="{ 'avatar-hover': avatarHover }" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false" (click)="openAvatarModal()">
-        <ng-container *ngIf="selectedAvatar; else defaultAvatar">
+        <ng-container *ngIf="selectedAvatar && selectedAvatar.urlImagen; else defaultAvatar">
           <img [src]="selectedAvatar.urlImagen" [alt]="selectedAvatar.nombre" class="avatar-img" />
         </ng-container>
         <ng-template #defaultAvatar></ng-template>

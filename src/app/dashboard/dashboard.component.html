@@ -17,11 +17,12 @@
           <div *ngFor="let cat of ['cryptography', 'securepractices', 'pentesting']">
             <p style="margin-bottom: 2px; text-transform: capitalize;">
               {{ cat }}: {{ categoryProgress[cat].completed }}/{{ categoryProgress[cat].total }}
-              <span *ngIf="categoryProgress[cat].total > 0">({{ categoryProgress[cat].percent }}%)</span>
             </p>
             <div class="progress-bar">
-              <div class="progress" [style.width]="categoryProgress[cat].percent + '%'"
-                   [style.background]="categoryProgress[cat].percent === 100 ? '#4caf50' : '#2196f3'">
+              <div class="progress" [style.width]="categoryProgress[cat].percent + '%'">
+                <span class="progress-label-inside" *ngIf="categoryProgress[cat].total > 0">
+                  {{ categoryProgress[cat].percent }}%
+                </span>
               </div>
             </div>
           </div>

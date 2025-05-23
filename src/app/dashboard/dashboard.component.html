@@ -11,13 +11,18 @@
         </div>
       </div>
       <h2>{{ userName$ | async }}</h2>
-      <div *ngIf="progreso.length > 0">
+      <div *ngIf="categoryProgress">
         <h3>Progress</h3>
         <div class="progress-container">
-          <div *ngFor="let item of progreso">
-            <p>{{ item.reto.nombreReto }}: {{ item.estadoReto }}</p>
+          <div *ngFor="let cat of ['cryptography', 'securepractices', 'pentesting']">
+            <p style="margin-bottom: 2px; text-transform: capitalize;">
+              {{ cat }}: {{ categoryProgress[cat].completed }}/{{ categoryProgress[cat].total }}
+              <span *ngIf="categoryProgress[cat].total > 0">({{ categoryProgress[cat].percent }}%)</span>
+            </p>
             <div class="progress-bar">
-              <div class="progress" [style.width]="getProgressWidth(item.estadoReto)"></div>
+              <div class="progress" [style.width]="categoryProgress[cat].percent + '%'"
+                   [style.background]="categoryProgress[cat].percent === 100 ? '#4caf50' : '#2196f3'">
+              </div>
             </div>
           </div>
         </div>

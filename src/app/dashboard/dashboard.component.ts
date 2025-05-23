@@ -24,6 +24,16 @@ export class DashboardComponent implements OnInit {
   showAvatarModal = false;
   avatars: any[] = [];
 
+  // New properties for category progress
+  categoryProgress: {
+    [key: string]: { completed: number; total: number; percent: number }
+  } = {
+    cryptography: { completed: 0, total: 0, percent: 0 },
+    securepractices: { completed: 0, total: 0, percent: 0 },
+    pentesting: { completed: 0, total: 0, percent: 0 }
+  };
+  allRetos: any[] = [];
+
   constructor(private authService: AuthService, private retosService: RetosService, private http: HttpClient) {
     this.userName$ = this.authService.userName$;
   }
@@ -38,9 +48,13 @@ export class DashboardComponent implements OnInit {
     } else {
       this.selectedAvatar = null;
     }
-    if (this.userId) {
-      this.getProgresoUsuario(this.userId);
-    }
+    // Fetch all challenges and user progress
+    this.retosService.getRetos().subscribe(retos => {
+      this.allRetos = retos;
+      if (this.userId) {
+        this.getProgresoUsuario(this.userId);
+      }
+    });
   }
 
   getUserId(): number | null {
@@ -59,6 +73,20 @@ export class DashboardComponent implements OnInit {
         return acc;
       }, []);
       this.progreso = latestProgreso;
+      this.calculateCategoryProgress();
+    });
+  }
+
+  calculateCategoryProgress(): void {
+    const categories = ['cryptography', 'securepractices', 'pentesting'];
+    categories.forEach(category => {
+      const retosInCategory = this.allRetos.filter(r => r.categoria === category);
+      const total = retosInCategory.length;
+      const completed = retosInCategory.filter(r =>
+        this.progreso.find(p => p.reto.idReto === r.idReto && p.estadoReto === 'completado')
+      ).length;
+      const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+      this.categoryProgress[category] = { completed, total, percent };
     });
   }
 

@@ -17,7 +17,9 @@
           <div *ngFor="let cat of ['cryptography', 'securepractices', 'pentesting']">
             <div class="gauge-container">
               <svg class="gauge-svg" viewBox="0 0 220 120">
+                <!-- Línea gris de fondo (completa) -->
                 <path class="gauge-bg" d="M30,110 A80,80 0 0,1 190,110" />
+                <!-- Línea de progreso (avanza según el porcentaje) -->
                 <path class="gauge-fg"
                       [attr.d]="'M30,110 A80,80 0 0,1 190,110'"
                       [attr.stroke-dasharray]="(categoryProgress[cat].percent * 251.327 / 100) + ',' + 251.327" />

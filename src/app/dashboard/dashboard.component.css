@@ -254,16 +254,18 @@
   display: block;
 }
 .gauge-bg {
-  stroke: #444;
+  stroke: #bbb;
   stroke-width: 18;
   fill: none;
-  opacity: 0.25;
+  opacity: 1;
+  stroke-linecap: butt; /* Bornes rectos */
 }
 .gauge-fg {
   stroke: #43bf4a;
   stroke-width: 18;
   fill: none;
-  stroke-linecap: round;
+  stroke-linecap: butt; /* Bornes rectos */
+  filter: none;
   transition: stroke-dasharray 0.5s;
 }
 .gauge-label {

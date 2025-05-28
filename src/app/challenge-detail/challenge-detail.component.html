@@ -1,18 +1,62 @@
 <div class="challenge-detail-container" *ngIf="challenge">
   <h2>{{ challenge.nombreReto }}</h2>
+  <!-- Mostrar siempre la información principal -->
   <ul>
     <li><strong>Description:</strong> {{ challenge.descripcion }}</li>
     <li><strong>Difficulty:</strong> {{ challenge.nivelDificultad }}</li>
     <li><strong>Resource:</strong> <a [href]="challenge.urlRecurso" target="_blank"> {{ challenge.urlRecurso }}</a></li>
   </ul>
-  <div class="challenge-text">
-    <p>This is your challenge:</p>
-    <input type="text" [value]="encryptedHash" readonly class="encrypted-hash">
-  </div>
-  <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
-    <label for="solution">Enter your solution:</label>
-    <input id="solution" formControlName="solution" type="text" class="solution-input">
-    <button type="submit">Validate Solution</button>
-  </form>
+  <ng-container *ngIf="challenge.nombreReto === 'Strong Password'; else normalChallenge">
+    <div class="strong-password-desc">
+      <strong>Password requirements:</strong>
+      <ul class="password-requirements-list">
+        <li>Password must be at least 8 characters long</li>
+        <li>Include uppercase and lowercase letters</li>
+        <li>Include at least one special character (e.g. !&#64;#$%^&*)</li>
+        <li>Include at least one digit (0-9)</li>
+        <li>Do not use common passwords (e.g. 'password', '123456', 'qwerty')</li>
+        <li>Do not use your username or personal information</li>
+        <li>Avoid repeated or sequential characters (e.g. 'aaaa', '1234')</li>
+      </ul>
+    </div>
+    <!-- Popup personalizado para errores y hash -->
+    <div *ngIf="showPopup" class="custom-popup-backdrop">
+      <div class="custom-popup">
+        <div class="popup-content">
+          <h3 *ngIf="popupType === 'error'">Password requirements not met</h3>
+          <h3 *ngIf="popupType === 'hash'">Password hash</h3>
+          <ul *ngIf="popupType === 'error'">
+            <li *ngFor="let err of popupMessages">{{ err }}</li>
+          </ul>
+          <div *ngIf="popupType === 'hash'">
+            <p style="word-break: break-all;"><strong>{{ popupMessages[0] }}</strong></p>
+          </div>
+          <button (click)="closePopup()">OK</button>
+        </div>
+      </div>
+    </div>
+    <!-- Fin popup personalizado -->
+    <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+      <label for="strongPassword">Write a strong password:</label>
+      <input id="strongPassword" formControlName="password" type="password" class="solution-input">
+      <button type="submit">Validate Password</button>
+    </form>
+    <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
+      <label for="solution">Enter your solution (hash):</label>
+      <input id="solution" formControlName="solution" type="text" class="solution-input">
+      <button type="submit">Validate Solution</button>
+    </form>
+  </ng-container>
+  <ng-template #normalChallenge>
+    <div class="challenge-text">
+      <p>This is your challenge:</p>
+      <input type="text" [value]="encryptedHash" readonly class="encrypted-hash">
+    </div>
+    <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
+      <label for="solution">Enter your solution:</label>
+      <input id="solution" formControlName="solution" type="text" class="solution-input">
+      <button type="submit">Validate Solution</button>
+    </form>
+  </ng-template>
   <p *ngIf="progreso?.estadoReto === 'completado'" class="completed">This challenge was already completed</p>
 </div>

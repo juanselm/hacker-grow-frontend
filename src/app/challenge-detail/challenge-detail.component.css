@@ -103,3 +103,68 @@ form button:hover {
   text-align: center;
   margin-top: 20px;
 }
+
+.password-requirements-list {
+  list-style-type: disc !important;
+  margin-left: 2em;
+  padding-left: 0;
+  display: block;
+}
+
+.password-requirements-list li {
+  display: list-item;
+  list-style-type: disc !important;
+}
+
+.custom-popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-popup {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  padding: 2em 2.5em;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  z-index: 1001;
+}
+
+.custom-popup h3 {
+  margin-top: 0;
+  color: #ff5722;
+}
+
+.custom-popup ul {
+  text-align: left;
+  margin: 1em 0;
+  padding-left: 1.2em;
+}
+
+.custom-popup button {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  font-size: 1em;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.08);
+  transition: background 0.2s;
+}
+
+.custom-popup button:hover {
+  background-color: #e64a19;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { RetosService } from '../services/retos.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ProgresoService } from '../services/progreso.service'; // Importar el servicio compartido
 
@@ -20,6 +20,16 @@ export class ChallengeDetailComponent implements OnInit {
   userId: number | null = null;
   progreso: any;
 
+  // For Strong Password challenge
+  passwordForm: FormGroup;
+  showPasswordHash = false;
+  passwordHash = '';
+
+  // Popup messages
+  showPopup = false;
+  popupMessages: string[] = [];
+  popupType: 'error' | 'hash' = 'error';
+
   constructor(
     private route: ActivatedRoute,
     private retosService: RetosService,
@@ -29,6 +39,9 @@ export class ChallengeDetailComponent implements OnInit {
   ) {
     this.solutionForm = this.fb.group({
       solution: ['']
+    });
+    this.passwordForm = this.fb.group({
+      password: ['', Validators.required]
     });
   }
 
@@ -134,5 +147,68 @@ export class ChallengeDetailComponent implements OnInit {
         this.progresoService.updateProgreso(data); // Emitir el progreso actualizado
       });
     });
+  }
+
+  // Password validation for Strong Password challenge
+  onPasswordSubmit(): void {
+    const password = this.passwordForm.get('password')?.value || '';
+    const errors = this.validateStrongPassword(password);
+    if (errors.length > 0) {
+      this.popupType = 'error';
+      this.popupMessages = errors;
+      this.showPopup = true;
+      this.showPasswordHash = false;
+      this.passwordHash = '';
+      return;
+    }
+    // Si es válida, mostrar el hashSolucion del backend en el popup
+    this.passwordHash = this.challenge.hashSolucion;
+    this.popupType = 'hash';
+    this.popupMessages = [this.passwordHash];
+    this.showPopup = true;
+    this.showPasswordHash = false;
+  }
+
+  closePopup(): void {
+    this.showPopup = false;
+    this.popupMessages = [];
+  }
+
+  validateStrongPassword(password: string): string[] {
+    const errors: string[] = [];
+    if (password.length < 8) {
+      errors.push('- At least 8 characters');
+    }
+    if (!/[A-Z]/.test(password)) {
+      errors.push('- At least one uppercase letter');
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push('- At least one lowercase letter');
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push('- At least one special character (!@#$%^&*)');
+    }
+    if (!/[0-9]/.test(password)) {
+      errors.push('- At least one digit (0-9)');
+    }
+    // Lista de contraseñas comunes
+    const commonPasswords = ['password', '123456', '123456789', 'qwerty', 'abc123', 'password1', '111111', '123123', '12345', '12345678'];
+    if (commonPasswords.includes(password.toLowerCase())) {
+      errors.push("- Do not use common passwords (e.g. 'password', '123456', 'qwerty')");
+    }
+    // Información personal (username)
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const username = user.nombre ? user.nombre.toLowerCase() : '';
+    if (username && password.toLowerCase().includes(username)) {
+      errors.push('- Do not use your username or personal information');
+    }
+    // Secuencias o repeticiones
+    if (/([a-zA-Z0-9])\1{2,}/.test(password)) {
+      errors.push("- Avoid repeated characters (e.g. 'aaaa')");
+    }
+    if (/(0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz)/i.test(password)) {
+      errors.push("- Avoid sequential characters (e.g. '1234', 'abcd')");
+    }
+    return errors;
   }
 }

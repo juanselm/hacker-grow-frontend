@@ -38,7 +38,7 @@
     <!-- Fin popup personalizado -->
     <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
       <label for="strongPassword">Write a strong password:</label>
-      <input id="strongPassword" formControlName="password" type="password" class="solution-input">
+      <input id="strongPassword" formControlName="password" type="text" class="solution-input">
       <button type="submit">Validate Password</button>
     </form>
     <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">

@@ -176,8 +176,8 @@ export class ChallengeDetailComponent implements OnInit {
 
   validateStrongPassword(password: string): string[] {
     const errors: string[] = [];
-    if (password.length < 8) {
-      errors.push('- At least 8 characters');
+    if (password.length < 12) {
+      errors.push('- At least 12 characters');
     }
     if (!/[A-Z]/.test(password)) {
       errors.push('- At least one uppercase letter');

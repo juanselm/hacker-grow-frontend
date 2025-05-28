@@ -168,3 +168,8 @@ form button:hover {
 .custom-popup button:hover {
   background-color: #e64a19;
 }
+
+.form-separator {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}

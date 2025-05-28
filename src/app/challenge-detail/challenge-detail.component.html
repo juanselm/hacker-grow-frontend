@@ -41,9 +41,10 @@
       <input id="strongPassword" formControlName="password" type="text" class="solution-input">
       <button type="submit">Validate Password</button>
     </form>
+    <div class="form-separator"></div>
     <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
       <label for="solution">Enter your solution (hash):</label>
-      <input id="solution" formControlName="solution" type="text" class="solution-input">
+      <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">
       <button type="submit">Validate Solution</button>
     </form>
   </ng-container>
@@ -54,7 +55,7 @@
     </div>
     <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
       <label for="solution">Enter your solution:</label>
-      <input id="solution" formControlName="solution" type="text" class="solution-input">
+      <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">
       <button type="submit">Validate Solution</button>
     </form>
   </ng-template>

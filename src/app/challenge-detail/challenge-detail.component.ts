@@ -5,11 +5,13 @@ import { RetosService } from '../services/retos.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ProgresoService } from '../services/progreso.service'; // Importar el servicio compartido
+import { FREQUENCY_BREAKER_PHRASES } from './frequency-breaker-phrases';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-challenge-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './challenge-detail.component.html',
   styleUrls: ['./challenge-detail.component.css']
 })
@@ -29,6 +31,15 @@ export class ChallengeDetailComponent implements OnInit {
   showPopup = false;
   popupMessages: string[] = [];
   popupType: 'error' | 'hash' = 'error';
+
+  // Frequency Breaker challenge state
+  frequencyBreakerPlain = '';
+  frequencyBreakerCipher = '';
+  frequencyBreakerUserHash = '';
+  frequencyBreakerConfirm = '';
+  showFrequencyBreakerPopup = false;
+  frequencyBreakerPopupMsg = '';
+  frequencyBreakerPhraseConfirmed = false; // Nuevo estado para confirmar la frase
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +67,10 @@ export class ChallengeDetailComponent implements OnInit {
       this.challenge = data;
       if (data.hashSolucion) {
         this.encryptedHash = this.encryptHash(data.hashSolucion, data.nombreReto);
-        console.log('Encrypted hash:', this.encryptedHash);
+      }
+      // Solo inicializar Frequency Breaker si corresponde
+      if (this.challenge && this.challenge.nombreReto === 'Frequency Breaker') {
+        this.setRandomFrequencyBreakerPhrase();
       }
     });
     if (this.userId) {
@@ -210,5 +224,94 @@ export class ChallengeDetailComponent implements OnInit {
       errors.push("- Avoid sequential characters (e.g. '1234', 'abcd')");
     }
     return errors;
+  }
+
+  setRandomFrequencyBreakerPhrase(): void {
+    const idx = Math.floor(Math.random() * FREQUENCY_BREAKER_PHRASES.length);
+    this.frequencyBreakerPlain = FREQUENCY_BREAKER_PHRASES[idx];
+    this.frequencyBreakerCipher = this.frequencyBreakerEncrypt(this.frequencyBreakerPlain);
+    this.frequencyBreakerUserHash = '';
+    this.frequencyBreakerConfirm = '';
+    this.frequencyBreakerPhraseConfirmed = false; // Reiniciar estado
+  }
+
+  frequencyBreakerEncrypt(plain: string): string {
+    // Cifrado simple: reemplaza cada letra por la siguiente letra más frecuente en inglés (ejemplo didáctico)
+    const freqOrder = 'etaoinshrdlucmfwypvbgkjqxz';
+    const map: { [key: string]: string } = {};
+    for (let i = 0; i < 26; i++) {
+      map[freqOrder[i]] = freqOrder[(i + 1) % 26];
+    }
+    return plain.split('').map(c => {
+      const lower = c.toLowerCase();
+      if (map[lower]) {
+        const enc = map[lower];
+        return c === lower ? enc : enc.toUpperCase();
+      }
+      return c;
+    }).join('');
+  }
+
+  onConfirmDecryptedPhrase(): void {
+    if (this.frequencyBreakerUserHash.trim() === '') {
+      this.frequencyBreakerPopupMsg = 'Please enter the decrypted phrase.';
+      this.showFrequencyBreakerPopup = true;
+      this.frequencyBreakerPhraseConfirmed = false;
+      return;
+    }
+    const expectedPhrase = this.frequencyBreakerPlain.replace(/\s+/g, '').toLowerCase();
+    const userPhrase = this.frequencyBreakerUserHash.replace(/\s+/g, '').toLowerCase();
+    if (userPhrase === expectedPhrase) {
+      this.frequencyBreakerPhraseConfirmed = true;
+      // Mostrar el hash de la solución para que el usuario lo copie
+      this.frequencyBreakerPopupMsg = 'Phrase correct! Solution hash: ' + this.challenge.hashSolucion;
+      this.showFrequencyBreakerPopup = true;
+    } else {
+      this.frequencyBreakerPhraseConfirmed = false;
+      this.frequencyBreakerPopupMsg = 'Incorrect decrypted phrase. Try again!';
+      this.showFrequencyBreakerPopup = true;
+    }
+  }
+
+  onFrequencyBreakerSubmit(): void {
+    if (!this.frequencyBreakerPhraseConfirmed) {
+      this.frequencyBreakerPopupMsg = 'You must confirm the decrypted phrase first.';
+      this.showFrequencyBreakerPopup = true;
+      return;
+    }
+    if (this.frequencyBreakerConfirm.trim() === '') {
+      this.frequencyBreakerPopupMsg = 'Please enter the solution hash.';
+      this.showFrequencyBreakerPopup = true;
+      return;
+    }
+    const expectedHash = this.challenge.hashSolucion;
+    if (this.frequencyBreakerConfirm !== expectedHash) {
+      this.frequencyBreakerPopupMsg = 'The hash does not match the solution hash.';
+      this.showFrequencyBreakerPopup = true;
+      return;
+    }
+    // Todo correcto, mostrar el hash de la solución y marcar el reto como completado
+    this.frequencyBreakerPopupMsg = 'Correct! Solution hash: ' + expectedHash;
+    this.showFrequencyBreakerPopup = true;
+    // Actualizar progreso como completado
+    const progreso = {
+      usuario: { idUsuario: this.userId },
+      reto: { idReto: this.challenge.idReto },
+      estadoReto: 'completado',
+      fechaInicio: new Date().toISOString(),
+      fechaFinalizacion: new Date().toISOString(),
+      intentos: 1
+    };
+    this.retosService.updateProgresoUsuario(progreso).subscribe(() => {
+      this.retosService.getProgresoUsuario(this.userId!).subscribe((data: any[]) => {
+        this.progresoService.updateProgreso(data);
+        this.getProgresoUsuario(this.userId!);
+      });
+    });
+  }
+
+  closeFrequencyBreakerPopup(): void {
+    this.showFrequencyBreakerPopup = false;
+    this.frequencyBreakerPopupMsg = '';
   }
 }

@@ -1,0 +1,21 @@
+<div class="ranking-container">
+  <h2>Ranking de Usuarios</h2>
+  <div *ngIf="loading">Cargando ranking...</div>
+  <div *ngIf="error">{{ error }}</div>
+  <table *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>User</th>
+        <th>Challenges Solved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of ranking; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.nombreDeUsuario }}</td>
+        <td>{{ user.retosCompletados }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

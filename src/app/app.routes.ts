@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChallengesListComponent } from './challenges-list/challenges-list.component';
 import { ChallengeDetailComponent } from './challenge-detail/challenge-detail.component';
 import { AuthGuard } from './auth.guard';
+import { RankingComponent } from './ranking/ranking.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'challenges/:categoria', component: ChallengesListComponent, canActivate: [AuthGuard] },
     { path: 'challenge/:id', component: ChallengeDetailComponent, canActivate: [AuthGuard] },
+    { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },
 ];

@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of ranking; let i = index">
+      <tr *ngFor="let user of ranking; let i = index" [ngClass]="{'current-user': user.idUsuario === currentUserId}">
         <td>{{ i + 1 }}</td>
         <td>{{ user.nombreDeUsuario }}</td>
         <td>{{ user.retosCompletados }}</td>

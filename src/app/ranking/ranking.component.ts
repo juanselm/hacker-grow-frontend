@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 
 interface RankingUsuario {
   idUsuario: number;
@@ -21,8 +22,13 @@ export class RankingComponent implements OnInit {
   ranking: RankingUsuario[] = [];
   loading = true;
   error = '';
+  currentUserId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public authService: AuthService) {
+    // Obtener el id del usuario logueado
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.currentUserId = user.idUsuario || null;
+  }
 
   ngOnInit(): void {
     this.http.get<RankingUsuario[]>('http://localhost:8080/api/progreso-usuarios/ranking-usuarios')

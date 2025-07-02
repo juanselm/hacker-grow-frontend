@@ -49,9 +49,9 @@ td {
   font-weight: 500;
 }
 .current-user {
-  background: #ff5722 !important;
+  background: #ffa0835a !important;
   color: #fff !important;
   font-weight: 700;
   box-shadow: 0 0 8px 2px #ffb30033;
-  border-left: 6px solid #ff0000;
+  border-left: 6px solid #000000;
 }

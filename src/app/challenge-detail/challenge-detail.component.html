@@ -4,7 +4,8 @@
   <ul>
     <li><strong>Description:</strong> {{ challenge.descripcion }}</li>
     <li><strong>Difficulty:</strong> {{ challenge.nivelDificultad }}</li>
-    <li><strong>Resource:</strong> <a [href]="challenge.urlRecurso" target="_blank"> {{ challenge.urlRecurso }}</a></li>
+    <li *ngIf="challenge.categoria === 'pentesting'"><strong>Download Link:</strong> <a [href]="challenge.urlRecurso" target="_blank"> {{ challenge.urlRecurso }}</a></li>
+    <li *ngIf="challenge.categoria !== 'pentesting'"><strong>Resource:</strong> <a [href]="challenge.urlRecurso" target="_blank"> {{ challenge.urlRecurso }}</a></li>
   </ul>
   <ng-container *ngIf="challenge.nombreReto === 'Frequency Breaker'; else strongOrNormalChallenge">
     <div class="challenge-text">
@@ -74,15 +75,26 @@
     </ng-container>
   </ng-template>
   <ng-template #normalChallenge>
-    <div class="challenge-text">
-      <p>This is your challenge:</p>
-      <input type="text" [value]="encryptedHash" readonly class="encrypted-hash">
-    </div>
-    <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
-      <label for="solution">Enter your solution:</label>
-      <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">
-      <button type="submit">Validate Solution</button>
-    </form>
+    <ng-container *ngIf="challenge.categoria === 'pentesting'; else otherCategories">
+      <!-- Solo el formulario de solución para pentesting -->
+      <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
+        <label for="solution">Enter your solution:</label>
+        <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">
+        <button type="submit">Validate Solution</button>
+      </form>
+    </ng-container>
+    <ng-template #otherCategories>
+      <!-- Mostrar challenge text para otras categorías -->
+      <div class="challenge-text">
+        <p>This is your challenge:</p>
+        <input type="text" [value]="encryptedHash" readonly class="encrypted-hash">
+      </div>
+      <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
+        <label for="solution">Enter your solution:</label>
+        <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">
+        <button type="submit">Validate Solution</button>
+      </form>
+    </ng-template>
   </ng-template>
   <p *ngIf="progreso?.estadoReto === 'completado'" class="completed">This challenge was already completed</p>
 </div>

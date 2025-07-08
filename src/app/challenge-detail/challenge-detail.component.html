@@ -44,23 +44,6 @@
           <li>Avoid repeated or sequential characters (e.g. 'aaaa', '1234')</li>
         </ul>
       </div>
-      <!-- Popup personalizado para errores y hash -->
-      <div *ngIf="showPopup" class="custom-popup-backdrop">
-        <div class="custom-popup">
-          <div class="popup-content">
-            <h3 *ngIf="popupType === 'error'">Password requirements not met</h3>
-            <h3 *ngIf="popupType === 'hash'">Password hash</h3>
-            <ul *ngIf="popupType === 'error'">
-              <li *ngFor="let err of popupMessages">{{ err }}</li>
-            </ul>
-            <div *ngIf="popupType === 'hash'">
-              <p style="word-break: break-all;"><strong>{{ popupMessages[0] }}</strong></p>
-            </div>
-            <button (click)="closePopup()">OK</button>
-          </div>
-        </div>
-      </div>
-      <!-- Fin popup personalizado -->
       <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
         <label for="strongPassword">Write a strong password:</label>
         <input id="strongPassword" formControlName="password" type="text" class="solution-input">
@@ -97,4 +80,26 @@
     </ng-template>
   </ng-template>
   <p *ngIf="progreso?.estadoReto === 'completado'" class="completed">This challenge was already completed</p>
+  
+  <!-- Popup personalizado para errores, hash, success y failure -->
+  <div *ngIf="showPopup" class="custom-popup-backdrop">
+    <div class="custom-popup">
+      <div class="popup-content">
+        <h3 *ngIf="popupType === 'error'">Password requirements not met</h3>
+        <h3 *ngIf="popupType === 'hash'">Password hash</h3>
+        <h3 *ngIf="popupType === 'success'">Success!</h3>
+        <h3 *ngIf="popupType === 'failure'">Solution Incorrect</h3>
+        <ul *ngIf="popupType === 'error'">
+          <li *ngFor="let err of popupMessages">{{ err }}</li>
+        </ul>
+        <div *ngIf="popupType === 'hash'">
+          <p style="word-break: break-all;"><strong>{{ popupMessages[0] }}</strong></p>
+        </div>
+        <div *ngIf="popupType === 'success' || popupType === 'failure'">
+          <p><strong>{{ popupMessages[0] }}</strong></p>
+        </div>
+        <button (click)="closePopup()">OK</button>
+      </div>
+    </div>
+  </div>
 </div>

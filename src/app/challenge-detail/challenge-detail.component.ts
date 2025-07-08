@@ -30,7 +30,7 @@ export class ChallengeDetailComponent implements OnInit {
   // Popup messages
   showPopup = false;
   popupMessages: string[] = [];
-  popupType: 'error' | 'hash' = 'error';
+  popupType: 'error' | 'hash' | 'success' | 'failure' = 'error';
 
   // Frequency Breaker challenge state
   frequencyBreakerPlain = '';
@@ -151,9 +151,13 @@ export class ChallengeDetailComponent implements OnInit {
 
     this.retosService.updateProgresoUsuario(progreso).subscribe(() => {
       if (estadoReto === 'completado') {
-        alert('Congratulations! The solution is correct.');
+        this.popupType = 'success';
+        this.popupMessages = ['Congratulations! The solution is correct.'];
+        this.showPopup = true;
       } else {
-        alert('Incorrect solution. Please try again.');
+        this.popupType = 'failure';
+        this.popupMessages = ['Incorrect solution. Please try again.'];
+        this.showPopup = true;
       }
 
       // Actualizar el progreso global

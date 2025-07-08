@@ -60,6 +60,16 @@
   <ng-template #normalChallenge>
     <ng-container *ngIf="challenge.categoria === 'pentesting'; else otherCategories">
       <!-- Solo el formulario de solución para pentesting -->
+      <div *ngIf="challenge.rutaSolucion" class="hint-section">
+        <div class="hint-toggle" (click)="toggleHint()">
+          <span class="hint-icon">{{ showHint ? '▼' : '▶' }}</span>
+          <span>{{ showHint ? 'Hide Hint' : 'Show Hint' }}</span>
+        </div>
+        <div *ngIf="showHint" class="hint-content">
+          <p><strong>Hint:</strong></p>
+          <a [href]="challenge.rutaSolucion" target="_blank">{{ challenge.rutaSolucion }}</a>
+        </div>
+      </div>
       <form [formGroup]="solutionForm" (ngSubmit)="onSubmit()">
         <label for="solution">Enter your solution:</label>
         <input id="solution" formControlName="solution" type="text" class="solution-input" autocomplete="off" [value]="''">

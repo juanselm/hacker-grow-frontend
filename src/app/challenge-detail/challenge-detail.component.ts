@@ -41,6 +41,9 @@ export class ChallengeDetailComponent implements OnInit {
   frequencyBreakerPopupMsg = '';
   frequencyBreakerPhraseConfirmed = false; // Nuevo estado para confirmar la frase
 
+  // Hint toggle for pentesting challenges
+  showHint = false;
+
   constructor(
     private route: ActivatedRoute,
     private retosService: RetosService,
@@ -317,5 +320,9 @@ export class ChallengeDetailComponent implements OnInit {
   closeFrequencyBreakerPopup(): void {
     this.showFrequencyBreakerPopup = false;
     this.frequencyBreakerPopupMsg = '';
+  }
+
+  toggleHint(): void {
+    this.showHint = !this.showHint;
   }
 }
